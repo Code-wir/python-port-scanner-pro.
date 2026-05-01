@@ -27,9 +27,20 @@ def scan_target(target_ip, port_range):
                 print("    [Service Identity]: Unable to retrieve banner (quiescence).")
         
         scanner_socket.close()
-
+import argparse
+# Define the potency of our scan
 if __name__ == "__main__":
-    # Define the potency of our scan
+    parser = argparse.ArgumentParser(description="A visceral TCP Port Scanner.")
+    parser.add_argument("target", help="The IP address or hostname of the target.")
+    parser.add_argument("-p", "--ports", help="Port range (e.g., 20-80)", default="20-1024")
+    
+    args = parser.parse_args()
+    
+    # Logic to handle the port range string
+    start_port, end_port = map(int, args.ports.split("-"))
+    port_range = range(start_port, end_port + 1)
+    
+    scan_target(args.target, port_range)
     target = "127.0.0.1"  # Localhost for testing
     ports = range(20, 1025)  # Common service ports
     
